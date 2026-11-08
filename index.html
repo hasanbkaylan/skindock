@@ -122,7 +122,8 @@ const I18N = {
     anim: 'Animasyon', walk: 'Yürü', run: 'Koş', idle: 'Bekle', none: 'Yok',
     rotate: 'Otomatik döndür', download: 'Skini indir',
     loading: 'Yükleniyor…', ok: 'Yüklendi: ',
-    fail: 'Skin yüklenemedi (kullanıcı yok ya da CORS engeli olabilir). Bilgisayardan .png yüklemeyi dene.'
+    fail: 'Skin sunucusuna ulaşılamadı (CORS/ağ). Bilgisayardan .png yüklemeyi dene.',
+    notfound: 'Bu kullanıcı adına ait Ely.by skini bulunamadı. Gerçek bir Ely.by kullanıcı adı dene.'
   },
   en: {
     searchLabel: 'Ely.by username', search: 'Search', upload: 'or upload a .png skin from your computer',
@@ -130,7 +131,8 @@ const I18N = {
     anim: 'Animation', walk: 'Walk', run: 'Run', idle: 'Idle', none: 'None',
     rotate: 'Auto rotate', download: 'Download skin',
     loading: 'Loading…', ok: 'Loaded: ',
-    fail: 'Could not load skin (no such user or CORS blocked). Try uploading a .png instead.'
+    fail: 'Could not reach the skin server (CORS/network). Try uploading a .png instead.',
+    notfound: 'No Ely.by skin found for this username. Try a real Ely.by username.'
   }
 };
 let lang = localStorage.getItem('lang') || (navigator.language.startsWith('tr') ? 'tr' : 'en');
@@ -173,11 +175,28 @@ async function loadSkin(src, label) {
 
 const skinUrl = (nick) => 'https://skinsystem.ely.by/skins/' + encodeURIComponent(nick) + '.png';
 
-function search() {
+async function search() {
   const nick = document.getElementById('nick').value.trim();
   if (!nick) return;
   document.getElementById('dlBtn').href = skinUrl(nick);
-  loadSkin(skinUrl(nick), nick);
+  statusEl.textContent = T('loading');
+  // 1) doğrudan, 2) ve 3) CORS başlığı ekleyen genel proxyler
+  const urls = [
+    skinUrl(nick),
+    'https://images.weserv.nl/?output=png&url=' + encodeURIComponent('skinsystem.ely.by/skins/' + nick + '.png'),
+    'https://corsproxy.io/?url=' + encodeURIComponent(skinUrl(nick))
+  ];
+  let notFound = false;
+  for (const u of urls) {
+    try {
+      const r = await fetch(u);
+      if (r.status === 404) { notFound = true; break; }
+      if (!r.ok) continue;
+      const blob = await r.blob();
+      return loadSkin(URL.createObjectURL(blob), nick);
+    } catch (e) { console.warn('Denenen kaynak başarısız:', u, e); }
+  }
+  statusEl.textContent = notFound ? T('notfound') : T('fail');
 }
 
 /* ---------- Olaylar ---------- */
