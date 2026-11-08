@@ -182,11 +182,12 @@ async function search() {
   statusEl.textContent = T('loading');
   // 1) doğrudan, 2) ve 3) CORS başlığı ekleyen genel proxyler
   const urls = [
+    'http://skinsystem.ely.by/skins/' + encodeURIComponent(nick) + '.png', // resmi dokümanda http geçiyor
     skinUrl(nick),
     'https://images.weserv.nl/?output=png&url=' + encodeURIComponent('skinsystem.ely.by/skins/' + nick + '.png'),
-    'https://corsproxy.io/?url=' + encodeURIComponent(skinUrl(nick))
+    'https://corsproxy.io/?url=' + encodeURIComponent('http://skinsystem.ely.by/skins/' + nick + '.png')
   ];
-  let notFound = false;
+  let notFound = false; const errs = [];
   for (const u of urls) {
     try {
       const r = await fetch(u);
@@ -194,9 +195,9 @@ async function search() {
       if (!r.ok) continue;
       const blob = await r.blob();
       return loadSkin(URL.createObjectURL(blob), nick);
-    } catch (e) { console.warn('Denenen kaynak başarısız:', u, e); }
+    } catch (e) { console.warn('Denenen kaynak başarısız:', u, e); errs.push(u); }
   }
-  statusEl.textContent = notFound ? T('notfound') : T('fail');
+  statusEl.textContent = notFound ? T('notfound') : T('fail') + ' [' + errs.length + '/' + urls.length + ']';
 }
 
 /* ---------- Olaylar ---------- */
