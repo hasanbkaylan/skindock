@@ -12,13 +12,13 @@
 body{font:400 16px 'Roboto Flex',system-ui,sans-serif;background:var(--s);color:var(--os);min-height:100dvh;padding-bottom:88px}
 .ms{font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-style:normal;font-variation-settings:'FILL' 0;user-select:none}
 .ms.f{font-variation-settings:'FILL' 1}
-header{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;padding:12px 16px;background:var(--s)}
+header{position:sticky;top:0;z-index:5;display:flex;gap:8px;align-items:center;padding:10px 12px;background:var(--s)}
 .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;letter-spacing:-.5px}.logo b{color:var(--p)}
 .logo span{display:none}@media(min-width:640px){.logo span{display:inline}}
-.search{flex:1;display:flex;align-items:center;gap:8px;height:56px;border-radius:28px;background:var(--s2);padding:0 20px;transition:border-radius .4s var(--sp),box-shadow .2s}
+.search{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:52px;border-radius:26px;background:var(--s2);padding:0 16px;transition:border-radius .4s var(--sp),box-shadow .2s}
 .search:focus-within{border-radius:18px;box-shadow:0 0 0 2px var(--p)}
 .search input{flex:1;min-width:0;background:none;border:0;outline:0;font:inherit;color:inherit}
-.ib{width:48px;height:48px;border:0;border-radius:24px;background:var(--s1);color:var(--osv);display:grid;place-items:center;cursor:pointer;flex:none;font:700 13px 'Roboto Flex';transition:border-radius .35s var(--sp),transform .2s}
+.ib{width:44px;height:44px;border:0;border-radius:24px;background:var(--s1);color:var(--osv);display:grid;place-items:center;cursor:pointer;flex:none;font:700 13px 'Roboto Flex';transition:border-radius .35s var(--sp),transform .2s}
 .ib:hover{border-radius:16px}.ib:active{transform:scale(.9)}
 .btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border:0;border-radius:24px;font:600 15px 'Roboto Flex';cursor:pointer;background:var(--s2);color:var(--os);transition:border-radius .35s var(--sp),transform .25s var(--sp)}
 .btn:hover{border-radius:16px}.btn:active{border-radius:10px;transform:scale(.95)}
@@ -40,11 +40,11 @@ nav .on{color:var(--os)}nav .on .ic{background:var(--pc);color:var(--opc);border
 .sheet small{color:var(--osv);word-break:break-all}
 .row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .tf{width:100%;height:56px;border-radius:16px;border:1px solid var(--ol);background:none;color:inherit;padding:0 16px;font:inherit;outline:0}.tf:focus{border:2px solid var(--p)}
-dialog{border:0;border-radius:40px;padding:0;background:var(--s);color:var(--os);width:min(920px,calc(100vw - 20px));max-height:94dvh;margin:auto}
+dialog{border:0;border-radius:40px;padding:0;background:var(--s);color:var(--os);width:min(920px,calc(100vw - 20px));max-height:calc(100dvh - 20px);overflow-y:auto;overscroll-behavior:contain;margin:auto}
 dialog::backdrop{background:rgb(0 0 0/.5);backdrop-filter:blur(8px)}dialog[open]{animation:pop .5s var(--sp)}
 @keyframes pop{from{transform:scale(.85);opacity:0}}
 .dg{display:grid;gap:16px;padding:16px}@media(min-width:760px){.dg{grid-template-columns:1fr 1fr;padding:20px}}
-.stage{background:var(--pc);border-radius:32px;display:grid;place-items:center;min-height:360px;position:relative;overflow:hidden}
+.stage{background:var(--pc);border-radius:32px;display:grid;place-items:center;padding:8px;position:relative;overflow:hidden}.stage canvas{max-width:100%;height:auto!important}
 .loader{position:absolute;width:56px;height:56px;background:var(--p);animation:m 1.6s infinite var(--e)}
 @keyframes m{0%{border-radius:50%;transform:rotate(0)}33%{border-radius:30% 70% 70% 30%/30% 30% 70% 70%;transform:rotate(120deg)}66%{border-radius:12px;transform:rotate(240deg)}to{border-radius:50%;transform:rotate(360deg)}}
 .ctl{display:flex;flex-direction:column;gap:14px}.ctl h2{font:800 34px 'Roboto Flex';letter-spacing:-1px;word-break:break-all}
@@ -55,6 +55,8 @@ dialog::backdrop{background:rgb(0 0 0/.5);backdrop-filter:blur(8px)}dialog[open]
 .chip{height:36px;padding:0 16px;border-radius:12px;border:1px solid var(--ol);background:none;color:inherit;font:600 14px 'Roboto Flex';cursor:pointer;transition:border-radius .3s var(--sp)}
 .chip.on{background:var(--sc);border-color:transparent;border-radius:18px}
 .dot{width:44px;height:44px;border-radius:50%;border:3px solid var(--s);outline:2px solid var(--ol);cursor:pointer;transition:border-radius .4s var(--sp)}.dot.on{border-radius:14px;outline-color:var(--p)}
+html,body{max-width:100%;overflow-x:hidden}
+@media(max-width:759px){dialog{border-radius:28px}.dg{gap:10px;padding:12px}.ctl{gap:10px}.ctl h2{font-size:26px}.stage{border-radius:24px}.btn{padding:0 18px}}
 #sb{position:fixed;z-index:20;left:50%;bottom:100px;transform:translate(-50%,40px);opacity:0;pointer-events:none;background:var(--os);color:var(--s);padding:14px 22px;border-radius:18px;max-width:90vw;transition:.4s var(--sp)}
 #sb.on{transform:translate(-50%,0);opacity:1}
 </style></head><body>
@@ -68,12 +70,11 @@ dialog::backdrop{background:rgb(0 0 0/.5);backdrop-filter:blur(8px)}dialog[open]
   <section id="v-home"><h1 data-i="h_home"></h1><div class="grid" id="g1"></div></section>
   <section id="v-fav" hidden><h1 data-i="h_fav"></h1><div class="grid" id="g2"></div><p class="empty" id="nofav" data-i="nofav"></p></section>
   <section id="v-me" hidden><h1 data-i="h_me"></h1>
-    <div class="sheet" id="out"><p data-i="login_sub"></p><button class="btn f" id="login"><i class="ms">login</i><span data-i="login"></span></button></div>
+    <div class="sheet" id="out"><p data-i="login_sub"></p><input class="tf" id="nick" data-p="nick" autocomplete="off"><button class="btn f" id="login"><i class="ms">login</i><span data-i="login"></span></button></div>
     <div class="sheet" id="in" hidden><div class="row"><canvas id="av" width="80" height="160" style="width:56px;height:112px;image-rendering:pixelated"></canvas><div><h2 id="un"></h2><small data-i="cur"></small></div></div>
       <div class="row"><button class="btn t" id="my"><i class="ms">view_in_ar</i><span>3D</span></button><button class="btn o" id="lo" data-i="logout"></button></div></div>
     <div class="sheet"><b data-i="upload"></b><button class="btn t" id="upb"><i class="ms">upload_file</i><span data-i="pick"></span></button><input type="file" id="up" accept="image/png" hidden></div>
     <div class="sheet"><b data-i="look"></b><div class="row" id="hues"></div></div>
-    <div class="sheet"><b data-i="cfg"></b><input class="tf" id="cid" data-p="cid"><input class="tf" id="wk" data-p="wk"><small id="ru"></small><button class="btn f" id="sv" data-i="save"></button></div>
   </section>
 </main>
 <nav>
@@ -93,13 +94,12 @@ dialog::backdrop{background:rgb(0 0 0/.5);backdrop-filter:blur(8px)}dialog[open]
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 /* Yeni dil eklemek için: L içine yeni bir anahtar (ör. ru) ve aynı alanlar yeterli */
-const L={tr:{_:'TR',h_home:'Skin keşfet',h_fav:'Favoriler',h_me:'Hesap',n_home:'Keşfet',n_fav:'Favoriler',n_me:'Hesap',search:'İsim veya etiketle ara, Enter ile aç',login:'Ely.by ile Giriş Yap',logout:'Çıkış',login_sub:'Skinini görmek ve hesabınla bağlanmak için giriş yap.',cur:'Mevcut skinin',upload:'Bilgisayardan .png skin yükle',pick:'Dosya seç',look:'Görünüm rengi',cfg:'Ely.by bağlantı ayarları',cid:'Client ID',wk:'Token proxy adresi (Worker URL)',save:'Kaydet',arms:'Kol tipi',classic:'Klasik (Steve)',slim:'İnce (Alex)',anim:'Animasyon',walk:'Yürü',run:'Koş',idle:'Bekle',none:'Yok',rot:'Döndür',use:'Kullan',dl:'İndir',nofav:'Henüz favorin yok.',nf:'Bu isimde Ely.by skini bulunamadı.',fail:'Skin yüklenemedi.',saved:'Kaydedildi',needcfg:'Önce Client ID ve Worker adresini gir.',hi:'Hoş geldin, ',lfail:'Giriş başarısız.',usehint:'Skin indirildi. Ely.by profilinde skin yükleme sayfasından seç.',ru:'Ely.by uygulamasına şu Redirect URI eklenmeli: '},
-en:{_:'EN',h_home:'Discover skins',h_fav:'Favorites',h_me:'Account',n_home:'Discover',n_fav:'Favorites',n_me:'Account',search:'Search by name or tag, Enter to open',login:'Sign in with Ely.by',logout:'Sign out',login_sub:'Sign in to see your skin and connect your account.',cur:'Your current skin',upload:'Upload a .png skin from your computer',pick:'Choose file',look:'Accent color',cfg:'Ely.by connection settings',cid:'Client ID',wk:'Token proxy URL (Worker URL)',save:'Save',arms:'Arm type',classic:'Classic (Steve)',slim:'Slim (Alex)',anim:'Animation',walk:'Walk',run:'Run',idle:'Idle',none:'None',rot:'Rotate',use:'Use',dl:'Download',nofav:'No favorites yet.',nf:'No Ely.by skin found for this name.',fail:'Could not load skin.',saved:'Saved',needcfg:'Enter Client ID and Worker URL first.',hi:'Welcome, ',lfail:'Sign-in failed.',usehint:'Skin downloaded. Pick it on the Ely.by skin upload page.',ru:'Add this Redirect URI to your Ely.by app: '}};
+const L={tr:{_:'TR',h_home:'Skin keşfet',h_fav:'Favoriler',h_me:'Hesap',n_home:'Keşfet',n_fav:'Favoriler',n_me:'Hesap',search:'İsim veya etiketle ara, Enter ile aç',login:'Giriş yap',logout:'Çıkış',nick:'Ely.by kullanıcı adı',login_sub:'Ely.by kullanıcı adını yaz, skinin burada dursun.',cur:'Mevcut skinin',upload:'Bilgisayardan .png skin yükle',pick:'Dosya seç',look:'Görünüm rengi',cfg:'Ely.by bağlantı ayarları',cid:'Client ID',wk:'Token proxy adresi (Worker URL)',save:'Kaydet',arms:'Kol tipi',classic:'Klasik (Steve)',slim:'İnce (Alex)',anim:'Animasyon',walk:'Yürü',run:'Koş',idle:'Bekle',none:'Yok',rot:'Döndür',use:'Kullan',dl:'İndir',nofav:'Henüz favorin yok.',nf:'Bu isimde Ely.by skini bulunamadı.',fail:'Skin yüklenemedi.',saved:'Kaydedildi',needcfg:'Önce Client ID ve Worker adresini gir.',hi:'Hoş geldin, ',lfail:'Giriş başarısız.',usehint:'Skin indirildi. Ely.by profilinde skin yükleme sayfasından seç.',ru:'Ely.by uygulamasına şu Redirect URI eklenmeli: '},
+en:{_:'EN',h_home:'Discover skins',h_fav:'Favorites',h_me:'Account',n_home:'Discover',n_fav:'Favorites',n_me:'Account',search:'Search by name or tag, Enter to open',login:'Sign in',logout:'Sign out',nick:'Ely.by username',login_sub:'Enter your Ely.by username to keep your skin here.',cur:'Your current skin',upload:'Upload a .png skin from your computer',pick:'Choose file',look:'Accent color',cfg:'Ely.by connection settings',cid:'Client ID',wk:'Token proxy URL (Worker URL)',save:'Save',arms:'Arm type',classic:'Classic (Steve)',slim:'Slim (Alex)',anim:'Animation',walk:'Walk',run:'Run',idle:'Idle',none:'None',rot:'Rotate',use:'Use',dl:'Download',nofav:'No favorites yet.',nf:'No Ely.by skin found for this name.',fail:'Could not load skin.',saved:'Saved',needcfg:'Enter Client ID and Worker URL first.',hi:'Welcome, ',lfail:'Sign-in failed.',usehint:'Skin downloaded. Pick it on the Ely.by skin upload page.',ru:'Add this Redirect URI to your Ely.by app: '}};
 let lang=localStorage.lang||(navigator.language.startsWith('tr')?'tr':'en');
 const t=k=>L[lang][k]||L.en[k]||k;
-function i18n(){document.documentElement.lang=lang;$$('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));$$('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));$('#lng').textContent=L[lang]._;$('#ru').textContent=t('ru')+RU}
+function i18n(){document.documentElement.lang=lang;$$('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));$$('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));$('#lng').textContent=L[lang]._}
 const toast=m=>{const s=$('#sb');s.textContent=m;s.classList.add('on');clearTimeout(s.h);s.h=setTimeout(()=>s.classList.remove('on'),3200)};
-const RU=location.origin+location.pathname;
 /* Dinamik renk (oklch tonal palet) */
 let hue=+localStorage.hue||160,dark=localStorage.dark?localStorage.dark==='1':matchMedia('(prefers-color-scheme:dark)').matches;
 function theme(){const h=hue,c=(l,k,x=h)=>`oklch(${l} ${k} ${x})`,r=document.documentElement.style;
@@ -123,8 +123,10 @@ $('#q').oninput=e=>{const v=e.target.value.toLowerCase();$$('.card').forEach(c=>
 $('#q').onkeydown=e=>{if(e.key=='Enter'&&e.target.value.trim())show(e.target.value.trim())};
 /* 3D detay */
 let V,cur={n:'',u:'',m:'default'};const AN={walk:()=>new skinview3d.WalkingAnimation,run:()=>new skinview3d.RunningAnimation,idle:()=>new skinview3d.IdleAnimation,none:()=>null};
-function viewer(){if(V)return;const w=Math.min(300,innerWidth-70);V=new skinview3d.SkinViewer({canvas:$('#cv'),width:w,height:Math.round(w*1.3),zoom:.8,fov:50});V.controls.enableZoom=false;V.controls.enablePan=false;V.autoRotate=true;V.animation=AN.walk()}
-async function show(n,url){$('#dlg').showModal();viewer();$('#dn').textContent=n;$('#ld').hidden=false;
+function fit(){if(!V)return;const w=Math.round(Math.max(140,Math.min(300,innerWidth-72,innerHeight*(innerWidth<760?.38:.6)/1.3)));V.setSize(w,Math.round(w*1.3))}
+addEventListener('resize',fit);
+function viewer(){if(V)return;V=new skinview3d.SkinViewer({canvas:$('#cv'),width:240,height:312,zoom:.8,fov:50});fit();V.controls.enableZoom=false;V.controls.enablePan=false;V.autoRotate=true;V.animation=AN.walk()}
+async function show(n,url){$('#dlg').showModal();viewer();fit();$('#dn').textContent=n;$('#ld').hidden=false;
 try{url??=await skin(n)}catch(e){toast(e===404?t('nf'):t('fail'));$('#dlg').close();return}
 cur.n=n;cur.u=url;await V.loadSkin(url,{model:cur.m}).catch(()=>toast(t('fail')));$('#ld').hidden=true;favUI()}
 function favUI(){$('#fv i').className='ms'+(favs().includes(cur.n)?' f':'')}
@@ -138,19 +140,16 @@ $('#fv').onclick=()=>{let f=favs();f=f.includes(cur.n)?f.filter(x=>x!=cur.n):[..
 /* Gezinme */
 function go(v){$$('main>section').forEach(s=>s.hidden=s.id!='v-'+v);$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));scrollTo(0,0)}
 $$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));
-/* Hesap (Ely.by OAuth2: code akışı, token takası Worker'da) */
-const cfg=()=>JSON.parse(localStorage.cfg||'{}'),user=()=>JSON.parse(localStorage.user||'null');
-function renderMe(){const u=user();$('#out').hidden=!!u;$('#in').hidden=!u;if(u){$('#un').textContent=u.username;skin(u.username).then(x=>draw($('#av'),x)).catch(()=>{})}const c=cfg();$('#cid').value=c.cid||'';$('#wk').value=c.w||''}
-$('#sv').onclick=()=>{localStorage.cfg=JSON.stringify({cid:$('#cid').value.trim(),w:$('#wk').value.trim()});toast(t('saved'))};
-$('#login').onclick=()=>{const c=cfg();if(!c.cid||!c.w){toast(t('needcfg'));return}const s=crypto.randomUUID();sessionStorage.st=s;location.href=`https://account.ely.by/oauth2/v1?client_id=${encodeURIComponent(c.cid)}&redirect_uri=${encodeURIComponent(RU)}&response_type=code&scope=account_info&state=${s}`};
+/* Hesap: kullanıcı adıyla giriş (skin varlığı doğrulanır) */
+const user=()=>JSON.parse(localStorage.user||'null');
+function renderMe(){const u=user();$('#out').hidden=!!u;$('#in').hidden=!u;if(u){$('#un').textContent=u.username;skin(u.username).then(x=>draw($('#av'),x)).catch(()=>{})}}
+$('#login').onclick=async()=>{const n=$('#nick').value.trim();if(!n)return;try{await skin(n);localStorage.user=JSON.stringify({username:n});toast(t('hi')+n);renderMe()}catch(e){toast(e===404?t('nf'):t('fail'))}};
+$('#nick').onkeydown=e=>e.key=='Enter'&&$('#login').click();
 $('#lo').onclick=()=>{localStorage.removeItem('user');renderMe()};
 $('#my').onclick=()=>show(user().username);
 $('#upb').onclick=()=>$('#up').click();
 $('#up').onchange=e=>{const f=e.target.files[0];if(f)show(f.name,URL.createObjectURL(f))};
 $('#hues').replaceChildren(...[160,260,330,30,90,200].map(h=>{const d=document.createElement('button');d.className='dot'+(h==hue?' on':'');d.style.background=`oklch(.6 .17 ${h})`;d.onclick=()=>{hue=h;localStorage.hue=h;theme();$$('.dot').forEach(x=>x.classList.toggle('on',x==d))};return d}));
-(async()=>{const q=new URLSearchParams(location.search);if(!q.get('code'))return;history.replaceState(0,'',RU);go('me');
-if(q.get('state')!==sessionStorage.st)return toast(t('lfail'));
-try{const c=cfg(),r=await fetch(c.w.replace(/\/$/,'')+'/token',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:q.get('code'),redirect_uri:RU,client_id:c.cid})});if(!r.ok)throw 0;const u=await r.json();localStorage.user=JSON.stringify({username:u.username,uuid:u.uuid});toast(t('hi')+u.username)}catch{toast(t('lfail'))}renderMe()})();
 $('#thm').onclick=()=>{dark=!dark;localStorage.dark=dark?1:0;theme()};
 $('#lng').onclick=()=>{const k=Object.keys(L);lang=k[(k.indexOf(lang)+1)%k.length];localStorage.lang=lang;i18n()};
 theme();i18n();fillGrids();renderMe();
